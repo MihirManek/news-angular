@@ -1,0 +1,109 @@
+<html ng-app="JKNews">
+	<head>
+		<title>JK News</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content="news, sports, technology, politics, political">
+		<meta name="description" content="Get to know about anything happening around the world, quickly and in a detailed manner">
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="css/style.css" type="text/css">
+		
+	</head>
+	<body>
+		<div class="container-fluid" ng-controller="HomeController">
+
+				<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+					<div class="navbar-brand">
+						<div class="logo">
+							<img src="img/logo.png">
+						</div>
+						<div class="header-text">JK News</div>
+					</div>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!/category/top-stories">Top Stories</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!/category/technology">Technology</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!/category/sports">Sports</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!/category/business">Business</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!/category/entertainment">Entertainment</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!/category/health">Health</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!/category/science">Science</a>
+							</li>
+							<!-- <a href="top-stories.html"></a>
+                            <a href="world.html"></a>
+                            <a href="technology.html"></a>
+                            <a href="sports.html"></a>
+                            <a href="politics.html"></a> -->
+						</ul>
+					</div>
+				</nav>
+			<section class="live-news">
+				<div class="row no-margin">
+					<div class="indicator col-1 col-md-1 col-lg-1 col-xl-1 col-xs-1 col-sm-1">
+						<div class="circle red"></div><div class="label ">LIVE:</div>
+					</div>
+					
+					<div class="ticker col-11 col-md-11 col-lg-11 col-xl-11 col-xs-11 col-sm-11"><marquee class="">1. Sample live news section. 2. Test news 2. 3. Test news 3.</marquee></div>
+				</div>
+				
+			</section>
+			<div class="content">
+				<div class="row no-margin" ng-view>
+
+				</div>
+			</div>
+			<!-- <section class="website-info"></section> -->
+			<footer>
+				Copyright &copy; 2018. All rights reserved. Made with <img src="img/like.svg" width=15 height=15>.
+			</footer>
+		</div>
+	</body>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-route.js"></script>
+	<!--
+		Configuration Files
+	-->
+	<script src="app/app.config.js"></script>
+	<script src="app/app.routes.js"></script>
+	<script src="app/app.js"></script>
+	<!--
+		Controllers
+	-->
+	<script src="app/home/HomeController.js"></script>
+	<script src="app/category/CategoryController.js"></script>
+
+	<!--
+		Components
+	-->
+	<script src="app/components/sidebar/sidebar.component.js"></script>
+	<!--
+		Services
+	-->
+	<script src="app/services/httpService.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+	</script>
+</html>
