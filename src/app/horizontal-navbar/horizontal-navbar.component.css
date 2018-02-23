@@ -1,0 +1,42 @@
+.header-text{
+    display:inline-block;
+    font-size:1.2em;
+}
+.logo{
+    display:inline;
+}
+.logo img{
+    width:34px;
+    height:32px;
+}
+
+
+/*
+	Navigation Bar
+*/
+nav{
+    background: rgba(175,175,175,0);
+}
+nav a{
+    text-decoration:none;
+    padding:5px;
+}
+nav a:hover{
+    text-decoration:none;
+    border-radius:5px;
+//-webkit-animation: NavHover 1s 1; /* Safari 4.0 - 8.0 */
+//animation: NavHover 0.5s 1;
+//animation-fill-mode:forwards;
+}
+@keyframes NavHover{
+    30%{
+        background: rgba(175,175,175,0.3);
+    }
+    100%{
+        background: rgba(175,175,175,0.6);
+    }
+}
+.nav-link{
+    padding-right: .5rem;
+    padding-left: .5rem;
+}
