@@ -1,61 +1,70 @@
 import {Component, OnInit} from '@angular/core';
-import {NewsArticle, Source} from "../news-article";
 import {ApiService} from "../api.service";
-import {ActivatedRoute, Router} from '@angular/router';
-import {Location} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
+import {PagerService} from "../pager.service";
+import {CategoryService} from "../category.service";
+import {MenuItem} from "../menu-item";
 
 @Component({
     selector: 'content',
     templateUrl: './content.component.html',
     styleUrls: ['./content.component.css'],
-    providers: [ApiService]
+    providers: [ApiService, CategoryService]
 })
 export class ContentComponent implements OnInit {
     exception: boolean = false;
     category: string = "";
-    news: NewsArticle[] = [];
+    news: any[] = [];
 
-    /*
-    * {
-            source: {
-                "id": "the-times-of-india",
-                "name": "The Times of India"
-            },
-            author: "",
-            title: "18-year-old girl burnt alive in Unnao",
-            description: "KANPUR: An 18-year-old 'dalit' girl was burnt alive by unidentified persons under the limits of Bara Sagwar police station in Unnao district on Thursd.",
-            url: "https://timesofindia.indiatimes.com/city/kanpur/18-year-old-girl-burnt-alive-in-unnao/articleshow/63041709.cms",
-            urlToImage: "https://static.toiimg.com/photo/msid-63041692/63041692.jpg?120881",
-            publishedAt: "2018-02-23T08:07:00Z"
-        },
-        {
-            source: {
-                "id": "the-times-of-india",
-                "name": "The Times of India"
-            },
-            author: "",
-            title: "18-year-old girl burnt alive in Unnao",
-            description: "KANPUR: An 18-year-old 'dalit' girl was burnt alive by unidentified persons under the limits of Bara Sagwar police station in Unnao district on Thursd.",
-            url: "https://timesofindia.indiatimes.com/city/kanpur/18-year-old-girl-burnt-alive-in-unnao/articleshow/63041709.cms",
-            urlToImage: null,
-            publishedAt: "2018-02-23T08:07:00Z"
-        },*/
+    allCategories: MenuItem[];
+    // pager object
+    pager: any = {};
 
-    constructor(private apiService: ApiService, private route: ActivatedRoute,
-                private router: Router) {
+    // paged items
+    pagedItems: any[];
+
+    pageSize: number = 2;
+
+    constructor(private apiService: ApiService,
+                private route: ActivatedRoute,
+                private pagerService: PagerService,
+                private categoryService: CategoryService) {
+    }
+
+    setPage(page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.news.length, page, this.pageSize);
+
+        // get current page of items
+        this.pagedItems = this.news.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 
     ngOnInit() {
+        this.allCategories=this.categoryService.getCategories();
         this.route
             .params
             .subscribe(params => {
                 // Defaults to 0 if no query param provided.
-                this.category = params['category'] || "default";
-                if (this.category == "default") {
+                this.category = params['category'] || "Top Stories";
+
+                if (this.category == "Top Stories") {
+                    this.exception=false;
                     this.getAllNews();
                 }
                 else {
-                    this.getNewsByCategory(this.category);
+                    let category = this.allCategories.filter(x => x.name.toUpperCase() == this.category.toUpperCase())[0];
+                    if(category !=undefined){
+                        this.exception=false;
+                        this.getNewsByCategory(this.category);
+                    }
+                    else{
+                        this.exception=true;
+                    }
+
                 }
             });
     }
@@ -66,6 +75,7 @@ export class ContentComponent implements OnInit {
             .subscribe(
                 (news) => {
                     this.news = news;
+                    this.setPage(1);
                 }
             );
     }
@@ -76,8 +86,12 @@ export class ContentComponent implements OnInit {
             .subscribe(
                 (news) => {
                     this.news = news;
+                    this.setPage(1);
                 }
             );
     }
-
+    onChangePageSize(size){
+        this.pageSize=+size;
+        this.setPage(1);
+    }
 }

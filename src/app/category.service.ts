@@ -1,15 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {MenuItem} from "../menu-item";
-import {CategoryService} from "../category.service";
+import {Injectable} from '@angular/core';
+import {MenuItem} from "./menu-item";
 
-@Component({
-    selector: 'horizontal-navbar',
-    templateUrl: './horizontal-navbar.component.html',
-    styleUrls: ['./horizontal-navbar.component.css'],
-    providers: [CategoryService]
-})
-export class HorizontalNavbarComponent implements OnInit {
-    menu: MenuItem[] = [
+@Injectable()
+export class CategoryService {
+
+    constructor() {
+    }
+
+    categories: MenuItem[] = [
         {
             name: "Top Stories",
             route: "/top-stories",
@@ -47,12 +45,7 @@ export class HorizontalNavbarComponent implements OnInit {
         },
     ];
 
-    constructor(private categoryService: CategoryService) {
+    getCategories(): MenuItem[] {
+        return this.categories;
     }
-
-    ngOnInit() {
-        this.menu = this.categoryService
-            .getCategories();
-    }
-
 }

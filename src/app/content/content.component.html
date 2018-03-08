@@ -4,8 +4,8 @@
             <div class="section-header exception">No such category exists</div>
         </section>
         <section class="main no-margin col-md-8 col-lg-8 col-xl-8 col-xs-12 col-sm-12" [hidden]="exception">
-            <div class="section-header">Sample</div>
-            <article *ngFor="let element of news">
+            <div class="section-header">{{category || "Top Stories"}}</div>
+            <article *ngFor="let element of pagedItems">
                 <div class="row no-margin">
                     <div class="media col-md-4 col-lg-4 col-xl-4 col-xs-12 col-sm-4"
                          [hidden]="element.urlToImage==null">
@@ -27,6 +27,34 @@
                 </div>
             </article>
             <!-- add pagination here-->
+            <!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a class="page-link" (click)="setPage(1)">First</a>
+                </li>
+                <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a class="page-link" (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+                </li>
+                <li>
+                    <select class="form-control" id="itemsPerPage" data-toggle="tooltip" data-placement="top" title="Items per page" (change)="onChangePageSize($event.target.value)">
+                        <option>2</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                </li>
+            </ul>
+
         </section>
         <sidebar class="no-margin col-md-4 col-lg-4 col-xl-4 col-xs-12 col-sm-12"></sidebar>
     </div>

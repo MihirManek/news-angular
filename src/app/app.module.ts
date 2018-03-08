@@ -10,6 +10,8 @@ import {ApiService} from './api.service';
 import {HttpModule} from '@angular/http';
 import { AppRoutingModule } from './/app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PagerService } from './pager.service';
+import { CategoryService } from './category.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +28,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
         HttpModule,
         AppRoutingModule
     ],
-    providers: [ApiService],
+    providers: [ApiService, PagerService, CategoryService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
